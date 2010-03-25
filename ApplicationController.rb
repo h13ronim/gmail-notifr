@@ -114,8 +114,12 @@ class ApplicationController < OSX::NSObject
     msgCount = messageCount
     if GNPreferences.sharedInstance.showUnreadCount? && msgCount > 0
       @status_item.setTitle(msgCount.to_s)
+      @status_item.setImage(@mail_icon)
+      @status_item.setAlternateImage(@mail_alter_icon)
     else
       @status_item.setTitle('')
+      @status_item.setImage(@app_icon)
+      @status_item.setAlternateImage(@app_alter_icon)
     end
     
     if msgCount > 0
@@ -123,12 +127,8 @@ class ApplicationController < OSX::NSObject
         msgCount == 1 ? NSLocalizedString("Unread Message") % msgCount :
           NSLocalizedString("Unread Messages") % msgCount
       )
-      @status_item.setImage(@mail_icon)
-      @status_item.setAlternateImage(@mail_alter_icon)
     else
       @status_item.setToolTip("")
-      @status_item.setImage(@app_icon)
-      @status_item.setAlternateImage(@app_alter_icon)
     end
   end
   
